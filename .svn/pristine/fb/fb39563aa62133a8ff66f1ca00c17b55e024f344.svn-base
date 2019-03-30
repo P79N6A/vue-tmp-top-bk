@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+
+from django.conf.urls import patterns
+from home_application.user_manage import user_views
+from home_application.user_manage import my_views
+
+urlpatterns = patterns(
+    'home_application.views',
+    (r'^$', 'home'),
+    (r'^login_info$', 'login_info'),
+    (r'^search_user$', user_views.search_user),
+    (r'^create_user$', user_views.create_user),
+    (r'^update_user$', user_views.update_user),
+    (r'^delete_user$', user_views.delete_user),
+    (r'^SearchUser$', my_views.SearchUser),
+    (r'^CreateUser$', my_views.CreateUser),
+    (r'^DeleteUser$', my_views.DeleteUser),
+    (r'^EditUser$', my_views.EditUser)
+)

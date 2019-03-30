@@ -1,0 +1,53 @@
+<template>
+    <div id='app'>
+        <Header :menu-option="menuOption"></Header>
+        <Container :style="{height: winHeight}"></Container>
+    </div>
+</template>
+
+<script>
+    import Header from '@/components/layout/header'
+    import Container from '@/components/layout/container'
+    import '@/assets/css/base.scss'
+    import '@/assets/font/bkicon/style.css'
+    export default {
+        name: 'App',
+        components: {
+            Header,
+            Container
+        },
+        created() {
+            let headerHeight = 60;
+            if (window.innerHeight) {
+                this.winHeight = window.innerHeight;
+            }
+            if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+                this.winHeight = document.documentElement.clientHeight;
+            }
+            this.winHeight = this.winHeight - headerHeight + 'px'
+        },
+        data() {
+            return {
+                menuOption: {
+                    type: 'top',
+                    data: [
+                        {
+                            displayName: '首页', iconClass: 'fa fa-tachometer fa-lg', url: '/'
+                        },
+                        {displayName: '用户管理', url: '/user'},
+                        {
+                            displayName: '系统管理',
+                            children: [
+                                {displayName: '系统日志', url: '/log'},
+                                {displayName: '系统设置1', url: '/setting'}
+                            ]
+                        },
+                        {displayName: 'Vue', url: '/my_page'},
+                    ]
+                }
+            }
+        }
+    }
+</script>
+<style>
+</style>

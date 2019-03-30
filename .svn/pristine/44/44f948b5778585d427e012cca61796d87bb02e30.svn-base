@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+from common.mymako import render_json
+from home_application.models import MyUser
+import json
+from home_application.bkcommon import utilities as util
+
+
+def SearchUser(request):
+    user_ = json.loads(request.body)['name']
+    user_list = list(MyUser.objects.filter(name__icontains=user_).values())
+
+    return render_json({"result": True, "data": user_list})
+
+
+def CreateUser(request):
+    user_ = json.loads(request.body)
+    user_['time_created'] = util.get_time_now_str()
+    res = MyUser.objects.create(**user_)
+    ID = res.id
+
+    return render_json({"result": True, 'data': ID})
+
+
+def DeleteUser(request):
+    data_ = json.loads(request.body)
+    MyUser.objects.filter(id=data_["id"]).delete()
+
+    return render_json({"result": True})
+
+def EditUser(request):
+    user_data = json.loads(request.body)
+    MyUser.objects.filter(id=user_data['id']).update(**user_data)
+
+    return render_json({"result": True})
+
+

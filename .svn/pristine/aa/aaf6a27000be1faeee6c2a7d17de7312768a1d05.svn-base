@@ -1,0 +1,44 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from '@/components/home'
+import User from '@/pages/userControllers/userManage'
+import Log from '@/pages/settingsControllers/log'
+import Setting from '@/pages/settingsControllers/setting'
+import Mypage from '@/pages/My_page/my_page'
+Vue.use(Router);
+
+let router = new Router({
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: User
+        }, {
+            path: '/setting',
+            name: 'setting',
+            component: Setting
+        }, {
+            path: '/log',
+            name: 'log',
+            component: Log
+        }, {
+            path: '/my_page',
+            name: 'my_page',
+            component: Mypage
+        },
+    ]
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.length === 0) {
+        from.name ? next({name: from.name}) : next('/');
+    } else {
+        next();
+    }
+});
+export default router
